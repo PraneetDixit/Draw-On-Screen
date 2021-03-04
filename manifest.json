@@ -1,7 +1,8 @@
 {
   "name": "Draw on screen",
   "version": "1.0",
-  "description": "Draw on screen in chrome",
+  "description": "Draw on screen in chrome tab",
+  "author": "Praneet Dixit",
   "manifest_version": 2,
   "permissions": [
     "activeTab",
