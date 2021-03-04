@@ -1,6 +1,8 @@
 (function(){
 
-let styleTag = `<style>
+let styleTag = document.createElement("style");
+styleTag.type = "text/css";
+styleTag.appendChild(document.createTextNode(`
                     #drawingCanvas{
                         position: fixed;
                         top:0px;
@@ -9,7 +11,7 @@ let styleTag = `<style>
                         z-index: 99999999;
                     }
                     #drawingOptions{
-                        background-color: lightsalmon;
+                        background-color: #ffa07acc;
                         position: fixed;
                         top: 100px;
                         left: 0px;
@@ -33,28 +35,45 @@ let styleTag = `<style>
                     }
                     #remove img{
                         width: 25px;
-                    }
-                </style>`;
-document.head.innerHTML += styleTag;
+                    }`));
+    
+document.head.appendChild(styleTag);
 
-let canvas = `<canvas id="drawingCanvas" width="${window.innerWidth-35}" height="${window.innerHeight}"></canvas>`;
-document.body.innerHTML += canvas;
+let canvas = document.createElement("canvas");
+canvas.setAttribute("width", `${window.innerWidth-35}`);
+canvas.setAttribute("height", `${window.innerHeight}`);
+canvas.setAttribute("id","drawingCanvas");
+document.body.appendChild(canvas);
 
-let opt = `<div id="drawingOptions">
-                <button id="erase">
-                    <img src="https://raw.githubusercontent.com/PraneetDixit/Assets/main/eraser.png" alt="Erase">
-                </button>
-                <button id="remove">
-                    <img src="https://raw.githubusercontent.com/PraneetDixit/Assets/main/close.png" alt="Close">
-                </button>
-        </div>`
-document.body.innerHTML += opt;
+let opt = document.createElement("div");
+opt.setAttribute("id", "drawingOptions");
+    
+let eraseBtn = document.createElement("button");
+eraseBtn.setAttribute("id", "erase");
+    
+let img1 = document.createElement("img");
+img1.setAttribute("src", "https://raw.githubusercontent.com/PraneetDixit/Assets/main/eraser.png");
+img1.setAttribute("alt", "Erase");
+    
+eraseBtn.appendChild(img1);
+opt.appendChild(eraseBtn);
+    
+let closeBtn = document.createElement("button");
+closeBtn.setAttribute("id", "remove");
+    
+let img2 = document.createElement("img");
+img2.setAttribute("src", "https://raw.githubusercontent.com/PraneetDixit/Assets/main/close.png");
+img2.setAttribute("alt", "Remove");
+    
+closeBtn.appendChild(img2);
+opt.appendChild(closeBtn);
 
-const c = document.getElementById("drawingCanvas");
-c.addEventListener("mousedown", setLastCoords);
-c.addEventListener("mousemove", freeForm);
+document.body.appendChild(opt);
+    
+document.getElementById("drawingCanvas").addEventListener("mousedown", setLastCoords);
+document.getElementById("drawingCanvas").addEventListener("mousemove", freeForm);
 
-const ctx = c.getContext("2d");
+const ctx = document.getElementById("drawingCanvas").getContext("2d");
 
 function eraseCanvas(){
     ctx.clearRect(0, 0, document.getElementById("drawingCanvas").width, document.getElementById("drawingCanvas").height);
@@ -64,7 +83,7 @@ const erase = document.getElementById("erase");
 erase.addEventListener("click", eraseCanvas);
 
 function setLastCoords(e) {
-    const {x, y} = c.getBoundingClientRect();
+    const {x, y} = document.getElementById("drawingCanvas").getBoundingClientRect();
     lastX = e.clientX - x;
     lastY = e.clientY - y;
 }
@@ -75,7 +94,7 @@ function freeForm(e) {
 }
 
 function penTool(e) {
-    const {x, y} = c.getBoundingClientRect();
+    const {x, y} = document.getElementById("drawingCanvas").getBoundingClientRect();
     let newX = e.clientX - x;
     let newY = e.clientY - y;
     
@@ -83,8 +102,6 @@ function penTool(e) {
     ctx.lineWidth = 5;
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(newX, newY);
-    console.log(newX, "   ", lastX);
-    console.log(newY, "   ", lastY);
     ctx.strokeStyle = 'red';
     ctx.stroke();
     ctx.closePath();
