@@ -1,0 +1,13 @@
+{
+  "name": "Draw on screen",
+  "version": "1.0",
+  "description": "Draw on screen in chrome",
+  "manifest_version": 2,
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "browser_action": {
+    "default_popup": "popup.html"
+  }
+}
