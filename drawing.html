@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drawing area</title>
+    <style>
+        #drawingCanvas{
+            position: fixed;
+            top:0px;
+            left: 0px;
+            background: transparent;
+            z-index: 99999999;
+        }
+        #drawingOptions{
+            background-color: #ffa07acc;
+            position: fixed;
+            top: 100px;
+            left: 0px;
+            width: fit-content;
+            padding: 20px;
+            z-index: 9999999999;
+        }
+        button{
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            display: block;
+        }
+        img{
+            width: 30px;
+            height: auto;
+        }
+        .colors{
+            width: 40px;
+            height: 28px;
+            margin: 0 auto;
+            border-radius: 5px;
+            background-color: red;
+            margin-top: 15px;
+            padding: 3px;
+            background-clip: content-box;
+        }
+        #black{
+            background-color: #212121;
+        }
+        #yellow{
+            background-color: yellow;
+        }
+        .active{
+            border: 3px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="drawingOptions">
+        <button id="erase" title="Eraser">
+            <img src="eraser.png" alt="erase">
+        </button>
+        <button class="colors active" id="red"></button>
+        <button class="colors" id="black"></button>
+        <button class="colors" id="yellow"></button>
+    </div>
+    <script src="custom.js"></script>
+</body>
+</html>
