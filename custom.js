@@ -8,6 +8,8 @@ let dc = document.getElementById("drawingCanvas");
 
 dc.addEventListener("mousedown", setLastCoords);
 dc.addEventListener("mousemove", freeForm);
+dc.addEventListener("pointerdown", setLastCoords);
+dc.addEventListener("pointermove", freeForm);
 
 const ctx = dc.getContext("2d");
 
